@@ -1,0 +1,37 @@
+/* ==================== */
+/* UTILITIES LAYER */
+/* ==================== */
+@layer utilities {
+  /* Visual Effects */
+  .scanlines {
+    @apply absolute inset-0 pointer-events-none;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.05) 0px,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+  }
+
+  .noise {
+    @apply absolute inset-0 opacity-10 pointer-events-none;
+  }
+
+  /* Custom Scrollbar Styles */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-[#3f69c0]/30 rounded;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .hover\:scrollbar-thumb-white\/50::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#3f69c0]/50;
+  }
+}

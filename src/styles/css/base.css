@@ -1,0 +1,24 @@
+/* ==================== */
+/* BASE LAYER */
+/* ==================== */
+@layer base {
+  body {
+    @apply bg-gray-950 overflow-x-hidden max-h-screen pb-2;
+    /* Improve mobile scrolling performance */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Global Styles */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  }
+
+  /* Mobile performance optimizations */
+  @media (max-width: 768px) {
+    * {
+      /* Reduce animations on mobile for better performance */
+      animation-duration: 0.3s !important;
+    }
+  }
+}

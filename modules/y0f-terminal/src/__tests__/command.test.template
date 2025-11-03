@@ -1,0 +1,43 @@
+// Simple test template for terminal commands
+// Copy this file and replace COMMANDNAME with your command name
+
+import { describe, it, expect, vi } from 'vitest'
+import { COMMANDNAME } from '../commands/CATEGORY/COMMANDNAME'
+
+describe('COMMANDNAME command', () => {
+  const mockContext = {
+    setOutput: vi.fn(),
+    setActiveGame: vi.fn(),
+    setIsTrippy: vi.fn(),
+    setIsExpanded: vi.fn(),
+    parsed: {
+      command: 'COMMANDNAME',
+      args: [],
+      flags: [],
+      options: {},
+      raw: 'COMMANDNAME',
+    },
+  }
+
+  it('should have correct metadata', () => {
+    expect(COMMANDNAME.name).toBe('COMMANDNAME')
+    expect(COMMANDNAME.description).toBeDefined()
+    expect(COMMANDNAME.category).toBeDefined()
+  })
+
+  it('should execute and return output', async () => {
+    const result = await COMMANDNAME.execute(mockContext)
+
+    expect(Array.isArray(result)).toBe(true)
+    expect(result.length).toBeGreaterThan(0)
+  })
+
+  it('should handle arguments', async () => {
+    mockContext.parsed.args = ['test-arg']
+
+    const result = await COMMANDNAME.execute(mockContext)
+    const output = JSON.stringify(result)
+
+    expect(output).toContain('test-arg')
+  })
+})

@@ -1,0 +1,25 @@
+// Simple command template
+// Copy this file and replace COMMANDNAME with your command name
+
+import { createCommand, CommandCategory } from '../core/Command'
+import { formatText } from '../core/formatters'
+
+export const COMMANDNAME = createCommand({
+  name: 'COMMANDNAME',
+  description: 'What this command does',
+  category: CommandCategory.SYSTEM, // Change to appropriate category
+  usage: 'COMMANDNAME [options]',
+
+  execute: async ({ parsed }) => {
+    // Get arguments if needed
+    const arg = parsed.args[0]
+
+    // Return your output
+    return [
+      formatText('Hello from COMMANDNAME!'),
+      formatText(`You passed: ${arg || 'nothing'}`, 'text-gray-400'),
+    ]
+  },
+})
+
+// Remember to register your command in src/commands/index.ts!

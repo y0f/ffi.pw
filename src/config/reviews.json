@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name": "E. Boer",
+    "position": "Brand Representative",
+    "date": "January 14, 2025",
+    "relationship": "Client > Coupon System Fix (race conditions)",
+    "content": "We had a problem where customers were able to reuse coupons! Yоn spotted the bug and warned us before it got worse. Our devs patched it within hours."
+  },
+  {
+    "id": 2,
+    "name": "M. van der Berg",
+    "position": "Junior Full-Stack Developer",
+    "date": "December 12, 2024",
+    "relationship": "Former colleague",
+   "content": "Yоn is a driven developer with excellent insight into each project's needs. He delivers consistent and well-considered solutions, making him a valuable asset to any team. His positive and collaborative attitude makes working with him always pleasant."
+  },
+  {
+    "id": 3,
+    "name": "T. van Dijk",
+    "position": "Operations Manager",
+    "date": "June 5, 2024",
+    "relationship": "Client > Full-Stack Development (Laravel Filament CRM, API Development & Integrations)",
+    "content": "Before Yоn’s CRM, our sales team was juggling spreadsheets and three different apps. Now? Everything’s in one place, with automated follow-ups and a dashboard even our least techy folks mastered in days. Total game-changer."
+  },
+  {
+    "id": 4,
+    "name": "E. Terpstra",
+    "position": "Shareholder",
+    "date": "September 12, 2023",
+    "relationship": "Client > Penetration Testing (identified race conditions, cross-site scripting - XSS)",
+    "content": "Yоn found vulnerabilities that three other testers missed. His report was clear, detailed, and included practical fixes. Absolutely worth it."
+  },
+  {
+    "id": 5,
+    "name": "R. Couwenberg",
+    "position": "Painter",
+    "date": "February 8, 2023",
+    "relationship": "Client > WordPress Website + SEO",
+    "content": "Yоn made me a website to show my painting services. Easy to update, and now customers actually find me online."
+  },
+  {
+    "id": 6,
+    "name": "A. Janssen",
+    "position": "Retail Manager",
+    "date": "November 8, 2022",
+    "relationship": "Client > Clothing Statistics Dashboard",
+    "content": "Turns out our linen jackets sell better in humid areas—who knew? The dashboard Yon made shows us these patterns instantly. No more guessing what to stock next season."
+  },
+  {
+    "id": 7,
+    "name": "D. Smit",
+    "position": "Manager",
+    "date": "March 3, 2020",
+    "relationship": "Client > Ticket Management System",
+    "content": "We needed a new ticket system ASAP. Yоn had it live and working smoother than our old one in under a week."
+  }
+]

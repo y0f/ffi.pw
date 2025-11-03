@@ -1,0 +1,135 @@
+{
+  "services": [
+    {
+      "id": "WEB_DEV",
+      "title": "WEB_DEVELOPMENT",
+      "slug": "web-development",
+      "description": "Full-stack web development solutions - from pixel-perfect frontends to robust backend systems.",
+      "items": [
+        {
+          "title": "Full-Stack Development",
+          "price": "From 40€/h",
+          "description": "Complete solutions from database to UI, using the right tools for your project."
+        },
+        {
+          "title": "Frontend Engineering",
+          "price": "From 40€/h",
+          "description": "Modern, responsive interfaces with React, Vue, or traditional stacks."
+        },
+        {
+          "title": "Backend Systems",
+          "price": "From 40€/h",
+          "description": "API development, database architecture, and server-side logic."
+        },
+        {
+          "title": "Legacy Modernization",
+          "price": "From 40€/h",
+          "description": "Breathing new life into outdated systems with modern tech."
+        }
+      ],
+      "features": [
+        "Mobile-first responsive design",
+        "Performance-optimized architecture",
+        "SEO-friendly development",
+        "Progressive enhancement strategy"
+      ],
+      "technologies": [
+        "JavaScript (ES6+)",
+        "TypeScript",
+        "React",
+        "Vue 3",
+        "Next.js",
+        "Tailwind CSS",
+        "Sass",
+
+        "Node.js",
+        "Express",
+        "PHP",
+        "Laravel",
+        "Laravel Filament",
+        "Livewire",
+
+        "MongoDB",
+        "PostgreSQL",
+        "MySQL",
+        "Meilisearch",
+
+        "Python",
+        "Go (Golang)",
+        "Alpine.js",
+
+        "HubSpot API",
+
+        "Figma"
+      ],
+      "available": true
+    },
+    {
+      "id": "MOBILE_DEV",
+      "title": "MOBILE_DEVELOPMENT",
+      "slug": "mobile-development",
+      "description": "Cross-platform mobile solutions with native-like performance, seamlessly connected to your backend systems.",
+      "items": [
+        {
+          "title": "React Native Development",
+          "price": "From 50€/h",
+          "description": "Building cross-platform mobile apps with React Native that connect to your existing APIs or new backend services."
+        },
+        {
+          "title": "API Integration",
+          "price": "From 50€/h",
+          "description": "Seamlessly connect your mobile app to REST/GraphQL APIs, with proper authentication, caching, and error handling."
+        },
+        {
+          "title": "Full Mobile Solutions",
+          "price": "From 50€/h",
+          "description": "Complete package including both the React Native app and backend API development for a turnkey solution."
+        },
+        {
+          "title": "Performance Optimization",
+          "price": "From 50€/h",
+          "description": "Improving app performance, reducing load times, and optimizing API calls for better responsiveness."
+        }
+      ],
+      "features": [
+        "Offline-first architecture with sync capabilities",
+        "Secure API integration with JWT/OAuth",
+        "Real-time updates via WebSockets",
+        "Optimized network layer for unreliable connections"
+      ],
+      "technologies": [
+        "React Native",
+        "Expo",
+        "React Query",
+        "Apollo Client (GraphQL)",
+        "Axios/Fetch"
+      ]
+    },
+    {
+      "id": "WEB_SECURITY",
+      "title": "WEB_SECURITY",
+      "slug": "web-security",
+      "description": "Protecting your digital assets from modern threats.",
+      "items": [
+        {
+          "title": "Penetration Testing",
+          "price": "From 60€/h",
+          "description": "Simulated cyber attacks to identify vulnerabilities."
+        },
+        {
+          "title": "Security Audits",
+          "price": "From 60€/h",
+          "description": "Comprehensive review of your application's security posture."
+        }
+      ],
+      "features": [
+        "OWASP Top 10 coverage",
+        "Secure code review",
+        "Incident response planning",
+        "Security training"
+      ],
+      "technologies": ["Burp Suite", "OWASP ZAP", "Nmap"],
+      "available": true
+    }
+  ]
+}

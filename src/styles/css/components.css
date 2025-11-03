@@ -1,0 +1,16 @@
+/* ==================== */
+/* COMPONENTS LAYER */
+/* ==================== */
+@layer components {
+  /* App-specific components */
+
+  /* ServiceCard Header */
+  .service-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: none;
+    position: relative;
+    z-index: 10;
+  }
+}

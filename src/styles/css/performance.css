@@ -1,0 +1,78 @@
+@media (max-width: 768px) {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  img,
+  video {
+    will-change: auto;
+  }
+
+  .motion-safe\:will-change-transform {
+    will-change: transform;
+  }
+
+  .motion-safe\:will-change-opacity {
+    will-change: opacity;
+  }
+
+  [class*='blur-'] {
+    will-change: filter;
+  }
+
+  @supports (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) {
+    [style*='backdrop-filter'],
+    [style*='backdropFilter'] {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+  }
+
+  .animate-spin,
+  [class*='animate-'] {
+    will-change: transform;
+  }
+
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body,
+  #root {
+    contain: layout style paint;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  [data-framer-motion] {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

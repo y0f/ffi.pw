@@ -1,0 +1,213 @@
+/* Trippy Mode Animations */
+.trippy-terminal {
+  animation:
+    trippyBorder 5s linear infinite,
+    pulse 2s ease-in-out infinite alternate;
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+}
+
+.trippy-text {
+  animation:
+    trippyColor 1s linear infinite,
+    textGlow 1.5s ease-in-out infinite alternate;
+  text-shadow: 0 0 5px currentColor;
+}
+
+.trippy-bg {
+  animation:
+    trippyBg 3s linear infinite,
+    bgPulse 4s ease-in-out infinite alternate;
+}
+
+.trippy-slider {
+  animation: trippySlider 7s linear infinite;
+}
+
+/* Trippy Scrollbar Styles */
+.trippy-terminal ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.trippy-terminal ::-webkit-scrollbar-thumb {
+  animation: trippyScrollbarThumb 4s linear infinite;
+  border-radius: 4px;
+}
+
+.trippy-terminal ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Trippy Keyframes */
+@keyframes trippyBg {
+  0% {
+    background-color: rgba(255, 0, 0, 0.3);
+  }
+  14% {
+    background-color: rgba(255, 0, 127, 0.3);
+  }
+  28% {
+    background-color: rgba(255, 0, 255, 0.3);
+  }
+  42% {
+    background-color: rgba(127, 0, 255, 0.3);
+  }
+  56% {
+    background-color: rgba(0, 0, 255, 0.3);
+  }
+  70% {
+    background-color: rgba(0, 255, 255, 0.3);
+  }
+  84% {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 0.3);
+  }
+}
+
+@keyframes trippyBorder {
+  0% {
+    border-color: #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+  }
+  14% {
+    border-color: #ff007f;
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.7);
+  }
+  28% {
+    border-color: #ff00ff;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.7);
+  }
+  42% {
+    border-color: #7f00ff;
+    box-shadow: 0 0 20px rgba(127, 0, 255, 0.7);
+  }
+  56% {
+    border-color: #0000ff;
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0.7);
+  }
+  70% {
+    border-color: #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+  }
+  84% {
+    border-color: #00ff00;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+  }
+  100% {
+    border-color: #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+  }
+}
+
+@keyframes trippyColor {
+  0% {
+    color: #ff0000;
+  }
+  14% {
+    color: #ff007f;
+  }
+  28% {
+    color: #ff00ff;
+  }
+  42% {
+    color: #7f00ff;
+  }
+  56% {
+    color: #0000ff;
+  }
+  70% {
+    color: #00ffff;
+  }
+  84% {
+    color: #00ff00;
+  }
+  100% {
+    color: #ff0000;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.01);
+  }
+}
+
+@keyframes textGlow {
+  0% {
+    text-shadow: 0 0 5px currentColor;
+  }
+  100% {
+    text-shadow: 0 0 15px currentColor;
+  }
+}
+
+@keyframes bgPulse {
+  0% {
+    background-size: 100% 100%;
+  }
+  100% {
+    background-size: 105% 105%;
+  }
+}
+
+@keyframes trippySlider {
+  0% {
+    background-color: #ff0000;
+    transform: translateX(0);
+  }
+  25% {
+    background-color: #00ff00;
+    transform: translateX(5px);
+  }
+  50% {
+    background-color: #0000ff;
+    transform: translateX(0);
+  }
+  75% {
+    background-color: #ffff00;
+    transform: translateX(-5px);
+  }
+  100% {
+    background-color: #ff0000;
+    transform: translateX(0);
+  }
+}
+
+@keyframes trippyScrollbarThumb {
+  0% {
+    background-color: #ff0000;
+    box-shadow: 0 0 5px #ff0000;
+  }
+  14% {
+    background-color: #ff007f;
+    box-shadow: 0 0 5px #ff007f;
+  }
+  28% {
+    background-color: #ff00ff;
+    box-shadow: 0 0 5px #ff00ff;
+  }
+  42% {
+    background-color: #7f00ff;
+    box-shadow: 0 0 5px #7f00ff;
+  }
+  56% {
+    background-color: #0000ff;
+    box-shadow: 0 0 5px #0000ff;
+  }
+  70% {
+    background-color: #00ffff;
+    box-shadow: 0 0 5px #00ffff;
+  }
+  84% {
+    background-color: #00ff00;
+    box-shadow: 0 0 5px #00ff00;
+  }
+  100% {
+    background-color: #ff0000;
+    box-shadow: 0 0 5px #ff0000;
+  }
+}

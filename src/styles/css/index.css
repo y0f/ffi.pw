@@ -1,0 +1,26 @@
+/* ==================== */
+/* MAIN STYLESHEET */
+/* Import order matters for CSS cascade */
+/* ==================== */
+
+/* Tailwind Base */
+@import 'tailwindcss';
+@plugin 'tailwind-scrollbar';
+
+/* Theme Variables */
+@import './theme.css';
+
+/* Base Styles */
+@import './base.css';
+
+/* Components */
+@import './components.css';
+
+/* Utilities */
+@import './utilities.css';
+
+/* Animations */
+@import './animations.css';
+
+/* Performance Optimizations */
+@import './performance.css';
