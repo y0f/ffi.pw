@@ -1,7 +1,3 @@
-<div align="center">
-  <img src="public/favicon.svg" width="120" height="120" alt="ffi.pw">
-</div>
-
 # ffi.pw
 
 My personal portfolio site with an interactive terminal.
