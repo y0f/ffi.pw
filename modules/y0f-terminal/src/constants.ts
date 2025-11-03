@@ -4,7 +4,7 @@
  */
 
 export const TERMINAL = {
-  USER: 'user@host',
+  USER: 'visitor@ffi.pw',
   PATH: '~',
 } as const
 
