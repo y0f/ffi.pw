@@ -94,7 +94,7 @@ export function withGameErrorBoundary<P extends object>(
   GameComponent: React.ComponentType<P>,
   gameName: string,
 ) {
-  return React.forwardRef<any, P>((props: P, ref) => {
+  return React.forwardRef<any, P>((props, ref) => {
     const handleError = (error: Error, errorInfo: ErrorInfo) => {
       console.error(`Game error in ${gameName}:`, { error, errorInfo })
     }
@@ -107,7 +107,7 @@ export function withGameErrorBoundary<P extends object>(
 
     return (
       <GameErrorBoundary gameName={gameName} onError={handleError} onExit={handleExit}>
-        <GameComponent {...props} ref={ref} />
+        <GameComponent {...(props as P)} ref={ref} />
       </GameErrorBoundary>
     )
   })

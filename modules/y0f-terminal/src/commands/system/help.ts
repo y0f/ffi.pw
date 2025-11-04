@@ -13,7 +13,7 @@ export const help = createCommand({
 
     // If category specified, show commands for that category
     if (category) {
-      const categoryMap: Record<string, typeof CommandCategory[keyof typeof CommandCategory]> = {
+      const categoryMap: Record<string, (typeof CommandCategory)[keyof typeof CommandCategory]> = {
         system: CommandCategory.SYSTEM,
         filesystem: CommandCategory.FILESYSTEM,
         effects: CommandCategory.EFFECTS,

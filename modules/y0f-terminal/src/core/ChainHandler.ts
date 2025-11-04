@@ -38,7 +38,6 @@ export function hasChain(input: string): boolean {
 export function splitByChain(input: string): ChainCommand[] {
   const commands: ChainCommand[] = []
   let current = ''
-  let lastOperator: ChainOperator | undefined
 
   parseWithQuotes(input, (char, index, state) => {
     const nextChar = input[index + 1]

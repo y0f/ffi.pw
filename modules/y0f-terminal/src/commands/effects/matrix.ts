@@ -40,7 +40,10 @@ class MatrixRain {
 
     // Pre-generate trail characters
     for (let i = 0; i < maxTrailLength; i++) {
-      trail.push(MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)])
+      const char = MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)]
+      if (char !== undefined) {
+        trail.push(char)
+      }
     }
 
     return {
@@ -55,18 +58,27 @@ class MatrixRain {
   update(): void {
     for (let row = 0; row < ROWS; row++) {
       for (let col = 0; col < COLUMNS; col++) {
-        this.grid[row][col] = ' '
+        const gridRow = this.grid[row]
+        if (gridRow) {
+          gridRow[col] = ' '
+        }
       }
     }
 
     for (let i = this.drops.length - 1; i >= 0; i--) {
       const drop = this.drops[i]
+      if (!drop) continue
+
       drop.position += drop.speed
 
       for (let j = 0; j < drop.trail.length; j++) {
         const row = Math.floor(drop.position - j)
         if (row >= 0 && row < ROWS) {
-          this.grid[row][drop.column] = drop.trail[j]
+          const gridRow = this.grid[row]
+          const trailChar = drop.trail[j]
+          if (gridRow && trailChar !== undefined) {
+            gridRow[drop.column] = trailChar
+          }
         }
       }
 
@@ -90,7 +102,9 @@ class MatrixRain {
       }
       if (availableColumns.length > 0) {
         const col = availableColumns[Math.floor(Math.random() * availableColumns.length)]
-        this.drops.push(this.createDrop(col))
+        if (col !== undefined) {
+          this.drops.push(this.createDrop(col))
+        }
       }
     }
 
@@ -98,7 +112,10 @@ class MatrixRain {
     for (const drop of this.drops) {
       if (Math.random() > 0.9) {
         const indexToChange = Math.floor(Math.random() * drop.trail.length)
-        drop.trail[indexToChange] = MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)]
+        const newChar = MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)]
+        if (newChar !== undefined) {
+          drop.trail[indexToChange] = newChar
+        }
       }
     }
   }
@@ -122,8 +139,9 @@ class MatrixRain {
       const colorSegments: Array<{ start: number; end: number; color: string }> = []
 
       for (let col = 0; col < COLUMNS; col++) {
-        const char = this.grid[row][col]
-        lineText += char
+        const gridRow = this.grid[row]
+        const char = gridRow ? gridRow[col] : ' '
+        lineText += char ?? ' '
 
         if (char !== ' ') {
           for (const drop of this.drops) {
@@ -181,24 +199,6 @@ class MatrixRain {
     return output
   }
 
-  private getColorForIntensity(intensity: number): string {
-    switch (intensity) {
-      case 0:
-        return 'text-green-100 font-bold'
-      case 1:
-        return 'text-green-200'
-      case 2:
-        return 'text-green-300'
-      case 3:
-        return 'text-green-400'
-      case 4:
-        return 'text-green-500'
-      case 5:
-        return 'text-green-600'
-      default:
-        return 'text-green-500'
-    }
-  }
 }
 
 const matrixAnimation = {
@@ -207,7 +207,7 @@ const matrixAnimation = {
     let isFirstRender = true
 
     animateContinuous(
-      (time: number) => {
+      () => {
         if (!isFirstRender) {
           rain.update()
         }

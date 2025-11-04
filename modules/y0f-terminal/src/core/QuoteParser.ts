@@ -21,6 +21,7 @@ export function parseWithQuotes(
 
   for (let i = 0; i < input.length; i++) {
     const char = input[i]
+    if (!char) continue
     const prevChar = i > 0 ? input[i - 1] : ''
 
     if ((char === '"' || char === "'") && prevChar !== '\\') {
@@ -47,7 +48,6 @@ export function splitRespectingQuotes(
 ): string[] {
   const parts: string[] = []
   let current = ''
-  let delimiterMatch = ''
 
   const isDelimiter = (str: string, pos: number): { match: boolean; length: number } => {
     if (typeof delimiter === 'string') {
@@ -70,9 +70,6 @@ export function splitRespectingQuotes(
       // Found delimiter outside quotes
       if (current.trim() || includeDelimiter) {
         parts.push(current.trim())
-        if (includeDelimiter) {
-          delimiterMatch = input.slice(index, index + delimCheck.length)
-        }
       }
       current = ''
       for (let i = 1; i < delimCheck.length; i++) {
@@ -100,7 +97,7 @@ export function findPatternsOutsideQuotes(
   const results: Array<{ pattern: string; index: number; length: number }> = []
   let skipUntil = -1
 
-  parseWithQuotes(input, (char, index, state) => {
+  parseWithQuotes(input, (_char, index, state) => {
     if (index < skipUntil) return
     if (state.inQuotes) return
 
@@ -148,11 +145,9 @@ export function removeQuotes(str: string): string {
  */
 export function hasUnmatchedQuotes(input: string): boolean {
   let inQuotes = false
-  let quoteChar = ''
 
-  parseWithQuotes(input, (char, index, state) => {
+  parseWithQuotes(input, (_char, _index, state) => {
     inQuotes = state.inQuotes
-    quoteChar = state.quoteChar
   })
 
   return inQuotes
