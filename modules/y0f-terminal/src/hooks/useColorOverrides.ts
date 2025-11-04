@@ -1,3 +1,4 @@
+import { useMemo, useCallback } from 'react'
 import { DEFAULT_COLOR_OVERRIDES, type ColorOverride } from '../core/colorOverrides'
 import type { OutputObject } from '../core/Command'
 
@@ -7,43 +8,65 @@ export interface ColorOverridesHook {
 
 export default function useColorOverrides(customOverrides?: ColorOverride[]): ColorOverridesHook {
   const overrides = customOverrides || DEFAULT_COLOR_OVERRIDES
+  const colorCache = useMemo(() => new Map<string, Map<boolean, string>>(), [])
 
-  const applyColorOverrides = (items: OutputObject[], isDarkMode: boolean): OutputObject[] => {
-    if (!Array.isArray(items)) return items
+  const overrideColorClass = useCallback(
+    (colorClass: string, isDarkMode: boolean): string => {
+      if (!colorCache.has(colorClass)) {
+        colorCache.set(colorClass, new Map())
+      }
+      const modeCache = colorCache.get(colorClass)!
+      if (modeCache.has(isDarkMode)) {
+        return modeCache.get(isDarkMode)!
+      }
 
-    const overrideColorClass = (colorClass: string): string => {
+      let result = colorClass
       for (const override of overrides) {
         if (override.match.includes(colorClass)) {
-          return isDarkMode ? colorClass : override.lightModeReplacement
+          result = isDarkMode ? colorClass : override.lightModeReplacement
+          break
         }
       }
-      return colorClass
-    }
 
-    const processColorString = (colorString: string): string => {
+      colorCache.get(colorClass)!.set(isDarkMode, result)
+      return result
+    },
+    [overrides, colorCache],
+  )
+
+  const processColorString = useCallback(
+    (colorString: string, isDarkMode: boolean): string => {
       return colorString
         .split(' ')
-        .map((c) => overrideColorClass(c))
+        .map((c) => overrideColorClass(c, isDarkMode))
         .join(' ')
-    }
+    },
+    [overrideColorClass],
+  )
 
-    return items.map((item) => {
-      if (item.parts) {
+  const applyColorOverrides = useCallback(
+    (items: OutputObject[], isDarkMode: boolean): OutputObject[] => {
+      if (!Array.isArray(items)) return items
+
+      return items.map((item) => {
+        if (item.parts) {
+          return {
+            ...item,
+            parts: item.parts.map((part) => ({
+              ...part,
+              color: processColorString(part.color || '', isDarkMode),
+            })),
+          }
+        }
+
         return {
           ...item,
-          parts: item.parts.map((part) => ({
-            ...part,
-            color: processColorString(part.color || ''),
-          })),
+          color: processColorString(item.color || '', isDarkMode),
         }
-      }
-
-      return {
-        ...item,
-        color: processColorString(item.color || ''),
-      }
-    })
-  }
+      })
+    },
+    [processColorString],
+  )
 
   return { applyColorOverrides }
 }

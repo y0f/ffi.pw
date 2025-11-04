@@ -198,7 +198,6 @@ class MatrixRain {
 
     return output
   }
-
 }
 
 const matrixAnimation = {

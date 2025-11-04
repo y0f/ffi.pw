@@ -136,6 +136,7 @@ export function createAnimatedCommand(
 
 /**
  * Utility for frame-based animations
+ * Uses requestAnimationFrame in production, setTimeout in tests
  */
 export function animateFrames(
   frames: (() => OutputObject[])[],
@@ -143,24 +144,58 @@ export function animateFrames(
   context: AnimatedCommandContext,
 ) {
   let frameIndex = 0
+  const useRAF = typeof requestAnimationFrame !== 'undefined' && !import.meta.env.TEST
 
-  const animate = () => {
-    if (!context.isActive()) return
+  if (useRAF) {
+    let lastFrameTime = 0
 
-    const frame = frames[frameIndex % frames.length]
-    if (frame) {
-      context.updateOutput(frame())
+    const animate = (currentTime: number) => {
+      if (!context.isActive()) return
+
+      const elapsed = currentTime - lastFrameTime
+
+      // Only render if enough time has passed for the desired frame rate
+      if (elapsed >= frameDelay) {
+        const frame = frames[frameIndex % frames.length]
+        if (frame) {
+          context.updateOutput(frame())
+        }
+        frameIndex++
+
+        // Accumulate to prevent frame drift
+        lastFrameTime = currentTime - (elapsed % frameDelay)
+
+        // If we're more than 2 frames behind, catch up
+        if (elapsed > frameDelay * 2) {
+          lastFrameTime = currentTime
+        }
+      }
+
+      requestAnimationFrame(animate)
     }
-    frameIndex++
 
-    setTimeout(animate, frameDelay)
+    requestAnimationFrame(animate)
+  } else {
+    // Fallback to setTimeout for tests
+    const animate = () => {
+      if (!context.isActive()) return
+
+      const frame = frames[frameIndex % frames.length]
+      if (frame) {
+        context.updateOutput(frame())
+      }
+      frameIndex++
+
+      setTimeout(animate, frameDelay)
+    }
+
+    animate()
   }
-
-  animate()
 }
 
 /**
  * Utility for continuous animations with a render function
+ * Uses requestAnimationFrame in production, setTimeout in tests
  */
 export function animateContinuous(
   render: (time: number) => OutputObject[],
@@ -168,16 +203,48 @@ export function animateContinuous(
   context: AnimatedCommandContext,
 ) {
   const frameDelay = 1000 / fps
-  const startTime = Date.now()
+  const useRAF = typeof requestAnimationFrame !== 'undefined' && !import.meta.env.TEST
 
-  const animate = () => {
-    if (!context.isActive()) return
+  if (useRAF) {
+    const startTime = performance.now()
+    let lastFrameTime = 0
 
-    const elapsed = Date.now() - startTime
-    context.updateOutput(render(elapsed))
+    const animate = (currentTime: number) => {
+      if (!context.isActive()) return
 
-    setTimeout(animate, frameDelay)
+      const elapsed = currentTime - lastFrameTime
+
+      // Only render if enough time has passed for the desired frame rate
+      if (elapsed >= frameDelay) {
+        const timeFromStart = currentTime - startTime
+        context.updateOutput(render(timeFromStart))
+
+        // Accumulate to prevent frame drift
+        lastFrameTime = currentTime - (elapsed % frameDelay)
+
+        // If we're more than 2 frames behind, catch up
+        if (elapsed > frameDelay * 2) {
+          lastFrameTime = currentTime
+        }
+      }
+
+      requestAnimationFrame(animate)
+    }
+
+    requestAnimationFrame(animate)
+  } else {
+    // Fallback to setTimeout for tests
+    const startTime = Date.now()
+
+    const animate = () => {
+      if (!context.isActive()) return
+
+      const elapsed = Date.now() - startTime
+      context.updateOutput(render(elapsed))
+
+      setTimeout(animate, frameDelay)
+    }
+
+    animate()
   }
-
-  animate()
 }

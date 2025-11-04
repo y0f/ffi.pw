@@ -2,6 +2,11 @@
 /* NOTE: Background images are located in packages/y0f-terminal/public/backgrounds/ */
 /* and are synced to the main app's public directory via npm run sync:terminal-assets */
 
+:root {
+  --terminal-bg-image: url(/backgrounds/default-bg.webp);
+  --terminal-bg-color: rgba(0, 0, 0, 0.85);
+}
+
 /* Font Classes */
 .fira {
   font-family: 'Fira Code', monospace;
@@ -39,12 +44,11 @@
   z-index: 10;
 }
 
-/* Legacy class - backgrounds are now applied dynamically via JavaScript */
-/* See useApplySavedBackground hook and ToggleTheme component */
-.terminal-bg {
+.terminal-wp {
+  background-image: var(--terminal-bg-image);
   background-size: cover;
   background-position: center;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: var(--terminal-bg-color);
   background-blend-mode: overlay;
 }
 

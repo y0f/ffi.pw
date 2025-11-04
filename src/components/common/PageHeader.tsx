@@ -10,7 +10,13 @@ interface PageHeaderProps {
   className?: string
 }
 
-const PageHeader: FC<PageHeaderProps> = ({ title, subtitle, isDarkMode, shouldAnimate, className = '' }) => {
+const PageHeader: FC<PageHeaderProps> = ({
+  title,
+  subtitle,
+  isDarkMode,
+  shouldAnimate,
+  className = '',
+}) => {
   const fadeInAnimation = useMemo(
     () =>
       shouldAnimate
@@ -37,7 +43,9 @@ const PageHeader: FC<PageHeaderProps> = ({ title, subtitle, isDarkMode, shouldAn
 
   const fadeInOnlyAnimation = useMemo(
     () =>
-      shouldAnimate ? { initial: { opacity: 0 }, animate: { opacity: 1 } } : { initial: false, animate: {} },
+      shouldAnimate
+        ? { initial: { opacity: 0 }, animate: { opacity: 1 } }
+        : { initial: false, animate: {} },
     [shouldAnimate],
   )
 

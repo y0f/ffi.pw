@@ -2,9 +2,9 @@ import { lazy, Suspense, useEffect, type FC } from 'react'
 import { motion, useDragControls, useMotionValue } from 'framer-motion'
 import useIsMobile from '../hooks/useIsMobile'
 import TerminalWindow from '../components/home/TerminalWindow'
-import LoadingSpinner from '../components/ui/LoadingSpinner.tsx'
 
 const MobileHome = lazy(() => import('../components/home/MobileHome'))
+const terminalDragClass = 'cursor-grab relative z-[30]'
 
 const Home: FC = () => {
   const isMobile = useIsMobile()
@@ -21,7 +21,9 @@ const Home: FC = () => {
 
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [x, y])
+    // x and y are stable motion values, don't need to be in dependency array
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const dragProps = !isMobile
     ? {
@@ -41,18 +43,16 @@ const Home: FC = () => {
   return (
     <div className='terminal-ignore-grid min-h-[70vh] pt-0 max-h-screen flex items-center justify-center p-4'>
       {isMobile ? (
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense fallback={null}>
           <MobileHome />
         </Suspense>
       ) : (
         <motion.div
           {...dragProps}
+          className={terminalDragClass}
           style={{
             x,
             y,
-            cursor: 'grab',
-            position: 'relative',
-            zIndex: 30,
           }}
         >
           <TerminalWindow />

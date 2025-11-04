@@ -15,6 +15,10 @@ export interface VirtualFile {
   modified?: Date
 }
 
+// File size limits to prevent memory leaks
+const MAX_FILE_SIZE = 1024 * 1024 // 1MB per file
+const MAX_TOTAL_SIZE = 10 * 1024 * 1024 // 10MB total
+
 export interface FileSystemState {
   currentPath: string
   tree: VirtualFile
@@ -96,12 +100,24 @@ Visit /commands for full documentation.
 
 export class VirtualFileSystem {
   private state: FileSystemState
+  private totalSize: number = 0
 
   constructor(initialTree?: VirtualFile) {
     this.state = {
       currentPath: '/home/user',
       tree: initialTree || DEFAULT_FILE_SYSTEM,
     }
+    this.totalSize = this.calculateTotalSize(this.state.tree)
+  }
+
+  private calculateTotalSize(node: VirtualFile): number {
+    let size = node.size || 0
+    if (node.children) {
+      for (const child of Object.values(node.children)) {
+        size += this.calculateTotalSize(child)
+      }
+    }
+    return size
   }
 
   getCurrentPath(): string {
@@ -225,6 +241,16 @@ export class VirtualFileSystem {
    * Create a new file
    */
   createFile(path: string, content: string): boolean {
+    if (content.length > MAX_FILE_SIZE) {
+      console.warn(`File too large: ${content.length} bytes (max ${MAX_FILE_SIZE})`)
+      return false
+    }
+
+    if (this.totalSize + content.length > MAX_TOTAL_SIZE) {
+      console.warn(`Filesystem full: ${this.totalSize} bytes (max ${MAX_TOTAL_SIZE})`)
+      return false
+    }
+
     const absPath = this.resolvePath(path)
     const parts = absPath.split('/').filter((p) => p)
     const fileName = parts.pop()
@@ -255,6 +281,8 @@ export class VirtualFileSystem {
       size: content.length,
       modified: new Date(),
     }
+
+    this.totalSize += content.length
 
     return true
   }

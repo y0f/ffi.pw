@@ -15,6 +15,7 @@ import { useCommandHistory } from '../hooks/useCommandHistory'
 import { useTerminalInput } from '../hooks/useTerminalInput'
 import useColorOverrides from '../hooks/useColorOverrides'
 import useApplySavedBackground from '../hooks/useApplySavedBackground'
+import { useOutputWindowing } from '../hooks/useOutputWindowing'
 import { BUILTIN_GAME_CONFIGS } from './games'
 import { GameErrorBoundary } from './GameErrorBoundary'
 import welcomeText from '../config/welcomeText'
@@ -78,7 +79,6 @@ export const Terminal: FC<TerminalProps> = ({
   const { isDarkMode, background } = theme
   const { onExpand } = callbacks || {}
 
-  // Terminal handles its own styling and color overrides
   useApplySavedBackground({ isDarkMode })
   const { applyColorOverrides } = useColorOverrides()
 
@@ -127,10 +127,11 @@ export const Terminal: FC<TerminalProps> = ({
   })
 
   const { input, setInput, handleKeyDown } = useTerminalInput(navigateUp, navigateDown, setOutput)
+  const windowedOutput = useOutputWindowing(output)
 
   const themedOutput = useMemo(
-    () => (applyColorOverrides ? applyColorOverrides(output, isDarkMode) : output),
-    [output, isDarkMode, applyColorOverrides],
+    () => (applyColorOverrides ? applyColorOverrides(windowedOutput, isDarkMode) : windowedOutput),
+    [windowedOutput, isDarkMode, applyColorOverrides],
   )
 
   useEffect(() => {
