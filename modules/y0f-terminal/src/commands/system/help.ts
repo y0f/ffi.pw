@@ -56,7 +56,7 @@ export const help = createCommand({
       formatHeader('COMMANDS'),
       formatDivider(),
       formatText('  clear      - Clear terminal'),
-      formatText('  whoami     - About the developer'),
+      formatText('  whoami     - About me'),
       formatText('  services   - View my services'),
       formatText('  links      - Social links'),
       formatText('  neofetch   - System info'),

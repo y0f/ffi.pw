@@ -23,7 +23,7 @@ Complete reference for all available terminal commands at ffi.pw
 ### whoami
 **Description:** Show developer information  
 **Usage:** `whoami`  
-**Details:** Displays information about the developer (FFI).
+**Details:** Displays information about me(FFI).
 
 ### links
 **Description:** Show important links  
